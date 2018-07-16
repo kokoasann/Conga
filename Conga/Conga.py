@@ -12,8 +12,11 @@ import bb
 import ZD
 import agg
 
-def openC(path):
-    path.text = fd.askopenfilename()
+def openC(path,fildir = True):
+    if fildir:
+        path.text = fd.askopenfilename()
+    else:
+        path.text = fd.askdirectory()
     path.delete(1.0,tk.END)
     path.insert(1.0,path.text)
     print(path.text)
@@ -24,14 +27,29 @@ def openC(path):
         
 def convEX(infile,infolder,outname,P,outfolder,AGG):
     print("ex")
-    if(AGG):
-        poi = float(P)
-        c = ex.ex(infile,outname,P,outfolder)
+    poi = float(P)
+    if(not AGG):
+        if outfolder != "":
+            c = ex.ex(infile,outname,poi,outfolder)
+        else:
+            c = ex.ex(infile,outname,poi)
+        c.convert()
         del(c)
     else:
-        c = agg.flower(infolder,outfolder,outname,0,P)
+        c = agg.flower(infolder,outfolder,outname,0,poi)
+        c.converts()
         del(c)
-def convBB():
+def convBB(infile,infolder,outname,outfolder,alpha,alphafolder,AGG):
+    if(not AGG):
+        if outfolder != "":
+            c = bb.bb(infile,alpha,outname,outfolder)
+        else:
+            c = bb.bb(infile,alpha,outname)
+        c.convert()
+        del(c)
+    else:
+        c = agg.flower(infolder,outfolder,outname,1,0,alphafolder)
+        c.converts()
     print("bb")
 def convZD():
     print("ZD")
@@ -83,7 +101,7 @@ def setup():
 
     bINfolder = tk.Button(win,text = "hiraku")
     bINfolder.grid(column = 1,row = 8,sticky = "W")
-    bINfolder.bind("<1>",lambda c:openC(INfolder))
+    bINfolder.bind("<1>",lambda c:openC(INfolder,False))
 
     lOUTfolder = tk.Label(win,text = "出力フォルダパス")
     lOUTfolder.grid(column = 0,row = 10)
@@ -93,7 +111,7 @@ def setup():
 
     bOUTfolder = tk.Button(win,text = "hiraku")
     bOUTfolder.grid(column = 1,row = 11,sticky = "W")
-    bOUTfolder.bind("<1>",lambda d:openC(OUTfolder))
+    bOUTfolder.bind("<1>",lambda d:openC(OUTfolder,False))
 
     lAlphafile = tk.Label(win,text = "アルファ画像パス")
     lAlphafile.grid(column = 0,row = 13)
@@ -118,7 +136,7 @@ def setup():
 
     bEdge = tk.Button(win,text = "エッジ")
     bEdge.grid(column = 0,row = 17,sticky = "E")
-    bEdge.bind("<1>",lambda e:convEX(pathIN.get("1.0","end"),INfolder.get("1.0","end"),pathOUT.get("1.0","end"),P.get("1.0","end"),OUTfolder.get("1.0","end"),val.get()))
+    bEdge.bind("<1>",lambda f:convEX(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
 
     bAlpha = tk.Button(win,text = "アルファ")
     bAlpha.grid(column = 1,row = 17,sticky = "W")
