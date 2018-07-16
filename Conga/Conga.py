@@ -22,8 +22,15 @@ def openC(path):
     #cnv.create_image(0,0,image = img,anchor = tk.NW)
     #lav.config(image=img)
         
-def convEX():
+def convEX(infile,infolder,outname,P,outfolder,AGG):
     print("ex")
+    if(AGG):
+        poi = float(P)
+        c = ex.ex(infile,outname,P,outfolder)
+        del(c)
+    else:
+        c = agg.flower(infolder,outfolder,outname,0,P)
+        del(c)
 def convBB():
     print("bb")
 def convZD():
@@ -58,7 +65,7 @@ def setup():
     #cnv.create_image(0,0,image = img,anchor = tk.NW)
     #lav.config(image=img)
 
-    lpathOUT = tk.Label(win,text = "出力パス")
+    lpathOUT = tk.Label(win,text = "出力名")
     lpathOUT.grid(column = 0,row = 4)
 
     pathOUT = tk.Text(win,width = 50,height = 1)
@@ -104,20 +111,24 @@ def setup():
     P = tk.Text(win,width = 5,height = 1)
     P.grid(column = 0,row = 17,sticky = "W")
 
+    val = tk.BooleanVar()
+    val.set(False)
+    Agg = tk.Checkbutton(win,text = "連続")
+    Agg.grid(column = 3,row = 17,sticky = "W")
+
     bEdge = tk.Button(win,text = "エッジ")
-    bEdge.grid(column = 0,row = 18,sticky = "E")
-    bEdge.bind("<1>",lambda e:convEX())
+    bEdge.grid(column = 0,row = 17,sticky = "E")
+    bEdge.bind("<1>",lambda e:convEX(pathIN.get("1.0","end"),INfolder.get("1.0","end"),pathOUT.get("1.0","end"),P.get("1.0","end"),OUTfolder.get("1.0","end"),val.get()))
 
     bAlpha = tk.Button(win,text = "アルファ")
-    bAlpha.grid(column = 1,row = 18,sticky = "W")
-    bAlpha.bind("<1>",lambda e:convBB())
+    bAlpha.grid(column = 1,row = 17,sticky = "W")
+    #bAlpha.bind("<1>",lambda e:convBB())
 
     bNoise = tk.Button(win,text = "ノイズ")
-    bNoise.grid(column = 2,row = 18,sticky = "W")
+    bNoise.grid(column = 2,row = 17,sticky = "W")
     #bNoise.bind("<1>",lambda e:openC(Alphafile))
 
-    Agg = tk.Checkbutton(win,text = "連続")
-    Agg.grid(column = 3,row = 18,sticky = "W")
+    
 
     win.mainloop()
     
