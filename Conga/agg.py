@@ -12,12 +12,6 @@ import time
 import glob
 
 class flower:
-    infolder = None
-    outfolder = None
-    outname = None
-    P = 1.15
-    alphafolder = None
-    conv = None
     def __init__(self, infolder,outfolder,outname,conv,P = 1.15,alphafolder = None):
         self.infolder = infolder
         self.outfolder = outfolder
@@ -39,7 +33,8 @@ class flower:
                 i += 1
         elif self.conv == 1:
             print("bb")
-            ga = glob.glob(self.alphafolder)
+            al = self.alphafolder + "/*"
+            ga = glob.glob(al)
             for p in gp:
                 a = ga[i]
                 p = p.replace("\\","/")

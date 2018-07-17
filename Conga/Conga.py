@@ -45,7 +45,7 @@ def convBB(infile,infolder,outname,outfolder,alpha,alphafolder,AGG):
             c = bb.bb(infile,alpha,outname,outfolder)
         else:
             c = bb.bb(infile,alpha,outname)
-        c.converts()
+        c.convert()
         del(c)
     else:
         c = agg.flower(infolder,outfolder,outname,1,0,alphafolder)
@@ -123,27 +123,37 @@ def setup():
     bAlphafile.grid(column = 1,row = 14,sticky = "W")
     bAlphafile.bind("<1>",lambda e:openC(Alphafile))
 
+    lAlphafolder = tk.Label(win,text = "アルファフォルダパス")
+    lAlphafolder.grid(column = 0,row = 16)
+
+    Alphafolder = tk.Text(win,width = 50,height = 1)
+    Alphafolder.grid(column = 0,row = 17)
+
+    bAlphafolder = tk.Button(win,text = "hiraku")
+    bAlphafolder.grid(column = 1,row = 17,sticky = "W")
+    bAlphafolder.bind("<1>",lambda e:openC(Alphafile))
+
     lP = tk.Label(win,text = "強度")
-    lP.grid(column = 0,row = 16,sticky = "W")
+    lP.grid(column = 0,row = 19,sticky = "W")
 
     P = tk.Text(win,width = 5,height = 1)
-    P.grid(column = 0,row = 17,sticky = "W")
+    P.grid(column = 0,row = 20,sticky = "W")
 
     val = tk.BooleanVar()
     val.set(False)
     Agg = tk.Checkbutton(win,text = "連続",variable = val)
-    Agg.grid(column = 3,row = 17,sticky = "W")
+    Agg.grid(column = 3,row = 20,sticky = "W")
 
     bEdge = tk.Button(win,text = "エッジ")
-    bEdge.grid(column = 0,row = 17,sticky = "E")
+    bEdge.grid(column = 0,row = 20,sticky = "E")
     bEdge.bind("<1>",lambda f:convEX(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
 
     bAlpha = tk.Button(win,text = "アルファ")
-    bAlpha.grid(column = 1,row = 17,sticky = "W")
-    #bAlpha.bind("<1>",lambda e:convBB())
+    bAlpha.grid(column = 1,row = 20,sticky = "W")
+    bAlpha.bind("<1>",lambda e:convBB(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),Alphafile.get("1.0","end -1c"),Alphafolder.get("1.0","end -1c"),val.get()))
 
     bNoise = tk.Button(win,text = "ノイズ")
-    bNoise.grid(column = 2,row = 17,sticky = "W")
+    bNoise.grid(column = 2,row = 20,sticky = "W")
     #bNoise.bind("<1>",lambda e:openC(Alphafile))
 
     

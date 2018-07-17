@@ -7,10 +7,6 @@ import sys
 import time
 
 class ex:
-    infile = None
-    outname = None
-    outfolder = None
-    P = 1.15
     img = None
     def __init__(self,infile,outname,P,outfolder = None):
         self.infile = infile
