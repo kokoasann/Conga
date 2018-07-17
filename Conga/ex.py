@@ -43,44 +43,43 @@ class ex:
 
     def x3(self,x,y):
         im = []
-        if x < img.shape[1] and y < img.shape[0] and x > -1 and y > -1:
-            if x < img.shape[1]-1 and y < img.shape[0]-1 and x > 0 and y > 0:
-                im.append(img[y][x])
+        if x < self.img.shape[1] and y < self.img.shape[0] and x > -1 and y > -1:
+            if x < self.img.shape[1]-1 and y < self.img.shape[0]-1 and x > 0 and y > 0:
+                im.append(self.img[y][x])
             if x > 0:
-                im.append(img[y][x-1])
+                im.append(self.img[y][x-1])
             if x > 0 and y > 0:
-                im.append(img[y-1][x-1])
+                im.append(self.img[y-1][x-1])
             if y > 0:
-                im.append(img[y-1][x])
+                im.append(self.img[y-1][x])
         return im
     def convert(self):
         gry = cv2.imread(self.infile)
-        global img
-        img = cv2.cvtColor(gry, cv2.COLOR_RGB2GRAY)
+        self.img = cv2.cvtColor(gry, cv2.COLOR_RGB2GRAY)
         #print("step1")
-        total = img.shape[0]*img.shape[1]
+        total = self.img.shape[0]*self.img.shape[1]
 
-        out = np.zeros((img.shape[0],img.shape[1],4))
+        out = np.zeros((self.img.shape[0],self.img.shape[1],4))
         out[:,:,3] = 0
-        for y in range(img.shape[0]):
-            for x in range(img.shape[1]):
+        for y in range(self.img.shape[0]):
+            for x in range(self.img.shape[1]):
                 co = 0
                 BRG = []
                 if x > 2 and y > 2:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x-2,y-2))))
                 if y > 2:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x,y-2))))
-                if x < img.shape[1]-3 and y > 2:
+                if x < self.img.shape[1]-3 and y > 2:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x+2,y-2))))
                 if x > 2:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x-2,y))))
-                if x < img.shape[0]-3:
+                if x < self.img.shape[0]-3:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x+2,y))))
-                if x > 2 and y < img.shape[0]-3:
+                if x > 2 and y < self.img.shape[0]-3:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x-2,y+2))))
-                if y < img.shape[0]-3:
+                if y < self.img.shape[0]-3:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x,y+2))))
-                if y < img.shape[0]-3 and x < img.shape[1]-3:
+                if y < self.img.shape[0]-3 and x < self.img.shape[1]-3:
                     BRG.append(self.dif(self.ava(self.x3(x,y)),self.ava(self.x3(x+2,y+2))))
                 Bs = sorted(BRG, reverse=True)
                 for G in BRG:

@@ -45,7 +45,7 @@ def convBB(infile,infolder,outname,outfolder,alpha,alphafolder,AGG):
             c = bb.bb(infile,alpha,outname,outfolder)
         else:
             c = bb.bb(infile,alpha,outname)
-        c.convert()
+        c.converts()
         del(c)
     else:
         c = agg.flower(infolder,outfolder,outname,1,0,alphafolder)
@@ -131,7 +131,7 @@ def setup():
 
     val = tk.BooleanVar()
     val.set(False)
-    Agg = tk.Checkbutton(win,text = "連続")
+    Agg = tk.Checkbutton(win,text = "連続",variable = val)
     Agg.grid(column = 3,row = 17,sticky = "W")
 
     bEdge = tk.Button(win,text = "エッジ")

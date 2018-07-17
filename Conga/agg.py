@@ -28,12 +28,13 @@ class flower:
     def converts(self):
         i = 0
         converter = None
-        gp = glob.glob(self.infolder)
+        fo = self.infolder + "/*"
+        gp = glob.glob(fo)
         if self.conv == 0:
             print("ex")
             for p in gp:
                 p = p.replace("\\","/")
-                converter = ex.ex(p,self.outname+"%s"%i,P,self.outfolder)
+                converter = ex.ex(p,self.outname+"%s"%i,self.P,self.outfolder)
                 converter.convert()
                 i += 1
         elif self.conv == 1:
