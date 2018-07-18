@@ -51,7 +51,24 @@ def convBB(infile,infolder,outname,outfolder,alpha,alphafolder,AGG):
         c = agg.flower(infolder,outfolder,outname,1,0,alphafolder)
         c.converts()
     print("bb")
-def convZD():
+def convZD(infile,infolder,outname,P,outfolder,AGG):
+    if not AGG:
+        if P != "":
+            p = int(P)
+            if outfolder != "":
+                c = ZD.zd(infile,outname,outfolder,p)
+            else:
+                c = ZD.zd(infile,outname,None,p)
+        else:
+            if outfolder != "":
+                c = ZD.zd(infile,outname,outfolder)
+            else:
+                c = ZD.zd(infile,outname)
+        c.convert()
+    else:
+        p = int(P)
+        c = agg.flower(infolder,outfolder,outname,2,p)
+        c.converts()
     print("ZD")
 def setup():
     win = tk.Tk("conga","conga","conga")
@@ -131,7 +148,7 @@ def setup():
 
     bAlphafolder = tk.Button(win,text = "hiraku")
     bAlphafolder.grid(column = 1,row = 17,sticky = "W")
-    bAlphafolder.bind("<1>",lambda e:openC(Alphafile))
+    bAlphafolder.bind("<1>",lambda e:openC(Alphafolder,False))
 
     lP = tk.Label(win,text = "強度")
     lP.grid(column = 0,row = 19,sticky = "W")
@@ -154,7 +171,7 @@ def setup():
 
     bNoise = tk.Button(win,text = "ノイズ")
     bNoise.grid(column = 2,row = 20,sticky = "W")
-    #bNoise.bind("<1>",lambda e:openC(Alphafile))
+    bNoise.bind("<1>",lambda e:convZD(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
 
     
 

@@ -86,7 +86,7 @@ class ex:
                                 out[y][x] = [0,0,0,255]
                                 break;
         if self.outfolder == None:
-            cv2.imwrite(self.infile[:self.infile.rfind("/")]+self.outname+".png",out)
+            cv2.imwrite(self.infile[:self.infile.rfind("/")+1]+self.outname+".png",out)
         elif self.outfolder.rfind("/") == len(self.outfolder):
             cv2.imwrite(self.outfolder+self.outname+".png",out)
         else:

@@ -43,3 +43,8 @@ class flower:
                 i += 1
         elif self.conv == 2:
             print("ZD")
+            for p in gp:
+                p = p.replace("\\","/")
+                converter = ZD.zd(p,self.outname+"%s"%i,self.outfolder,self.P)
+                converter.convert()
+                i += 1
