@@ -25,6 +25,7 @@
     <Compile Include="bb.py" />
     <Compile Include="Conga.py" />
     <Compile Include="ex.py" />
+    <Compile Include="sk.py" />
     <Compile Include="ZD.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
