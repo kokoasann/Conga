@@ -3,6 +3,7 @@
 import ex
 import bb
 import ZD
+import sk
 
 import cv2
 import numpy as np
@@ -27,7 +28,7 @@ class flower:
         if self.conv == 0:
             print("ex")
             for p in gp:
-                p = p.replace("\\","/")
+                #p = p.replace("\\","/")
                 converter = ex.ex(p,self.outname+"%s"%i,self.P,self.outfolder)
                 converter.convert()
                 i += 1
@@ -37,14 +38,18 @@ class flower:
             ga = glob.glob(al)
             for p in gp:
                 a = ga[i]
-                p = p.replace("\\","/")
                 converter = bb.bb(p,a,self.outname+"%s"%i,self.outfolder)
                 converter.convert()
                 i += 1
         elif self.conv == 2:
             print("ZD")
             for p in gp:
-                p = p.replace("\\","/")
                 converter = ZD.zd(p,self.outname+"%s"%i,self.outfolder,self.P)
+                converter.convert()
+                i += 1
+        elif self.conv == 3:
+            print("sk")
+            for p in gp:
+                converter = sk.sk(p,self.outname+"%s"%i,self.outfolder,self.P)
                 converter.convert()
                 i += 1

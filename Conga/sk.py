@@ -22,29 +22,18 @@ class sk:
         x = 0
         y = 0
         print("%s,%s,%s,%s"%(v.shape[0],v.shape[1],v.shape[2],v.shape[3]))
-        while iy < v.shape[0]:
-            #print("%s,%s,%s,%s[%s,%s]"%(iy,ix,y2,x2,y,x))
-            v[iy][ix][y2][x2] = img[y][x]
-            if x2 != 2:
-                x2+=1
-            else:
-                x2 = 0
-                ix+=1
-
-            if ix >= v.shape[1]:
-                ix = 0
-                x2 = 0
-                if y2 != 2:
-                    y2+=1
-                else:
-                    y2 = 0
-                    iy+=1
-        
-            if x < v.shape[1]*self.P-1:
-                x+=1
-            else:
-                x = 0
-                y+=1
+        for iy in range(v.shape[0]):
+            for ix in range(v.shape[1]):
+                for y2 in range(v.shape[2]):
+                    for x2 in range(v.shape[3]):
+                        v[iy][ix][y2][x2] = img[y][x]
+                        x += 1
+                    x -= self.P
+                    y += 1
+                x += self.P
+                y -= self.P
+            x = 0
+            y += self.P
         
         x = 0
         y = 0
@@ -56,10 +45,11 @@ class sk:
                 for v1 in v[y][x]:
                     for v2 in v1:
                         val += v2
-                        #print(v2)
-                for i in range(self.P):
-                    #print(val[i])
-                    imap[y][x][i] = int(val[i] / self.P*3)
+                for i in range(3):
+                    point = self.P*self.P
+                    c = val[i]
+                    col = c / point
+                    imap[y][x][i] = int(col)
         print(time.time()-start)
         if self.outfolder == None:
             cv2.imwrite(self.infile[:self.infile.rfind("/")+1]+self.outname+".png",imap)
