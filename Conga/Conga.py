@@ -10,6 +10,7 @@ import tkinter.ttk as ttk
 import ex
 import bb
 import ZD
+import sk
 import agg
 
 def openC(path,fildir = True):
@@ -70,6 +71,25 @@ def convZD(infile,infolder,outname,P,outfolder,AGG):
         c = agg.flower(infolder,outfolder,outname,2,p)
         c.converts()
     print("ZD")
+def convSK(infile,infolder,outname,P,outfolder,AGG):
+    if not AGG:
+        if P != "":
+            p = int(P)
+            if outfolder != "":
+                c = sk.sk(infile,outname,outfolder,p)
+            else:
+                c = sk.sk(infile,outname,None,p)
+        else:
+            if outfolder != "":
+                c = sk.sk(infile,outname,outfolder)
+            else:
+                c = sk.sk(infile,outname)
+        c.convert()
+    else:
+        p = int(P)
+        c = agg.flower(infolder,outfolder,outname,3,p)
+        c.converts()
+
 def setup():
     win = tk.Tk("conga","conga","conga")
     win.geometry("970x600")
@@ -172,6 +192,11 @@ def setup():
     bNoise = tk.Button(win,text = "ノイズ")
     bNoise.grid(column = 2,row = 20,sticky = "W")
     bNoise.bind("<1>",lambda e:convZD(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
+    
+    bMini = tk.Button(win,text = "縮小")
+    bMini.grid(column = 0,row = 21,sticky = "E")
+    bMini.bind("<1>",lambda e:convSK(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
+
 
     
 
