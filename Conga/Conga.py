@@ -198,8 +198,6 @@ def setup():
     bMini.bind("<1>",lambda e:convSK(pathIN.get("1.0","end -1c"),INfolder.get("1.0","end -1c"),pathOUT.get("1.0","end -1c"),P.get("1.0","end -1c"),OUTfolder.get("1.0","end -1c"),val.get()))
 
 
-    
-
     win.mainloop()
     
 if __name__ == "__main__":

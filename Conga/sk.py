@@ -12,8 +12,8 @@ class sk:
         self.outfolder = outfolder
     def convert(self):
         start = time.time()
-        img = cv2.imread(self.infile)
-        p3 =  np.ones((self.P,self.P,3),np.int)*255
+        img = cv2.imread(self.infile,-1)
+        p3 =  np.ones((self.P,self.P,img.shape[2]),np.int)*255
         v = np.array([[p3 for i in range(int(img.shape[1]/self.P))] for j in range(int(img.shape[0]/self.P))])
         ix = 0
         iy = 0
@@ -37,15 +37,16 @@ class sk:
         
         x = 0
         y = 0
-        imap = np.ones((v.shape[0],v.shape[1],3),np.int)*255
-        val = [0,0,0]
+        imap = np.ones((v.shape[0],v.shape[1],img.shape[2]),np.int)*255
+        #val = [0,0,0]
+        #val = np.zeros(img.shape[2])
         for y in range(imap.shape[0]):
             for x in range(imap.shape[1]):
-                val = [0,0,0]
+                val = np.zeros(img.shape[2])
                 for v1 in v[y][x]:
                     for v2 in v1:
                         val += v2
-                for i in range(3):
+                for i in range(img.shape[2]):
                     point = self.P*self.P
                     c = val[i]
                     col = c / point
